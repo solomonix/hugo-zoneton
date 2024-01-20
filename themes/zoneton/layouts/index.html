@@ -64,7 +64,7 @@
 									</ul>
 								</section>
 								<div style="text-align: right; padding: 0.5rem 0;">
-									<a href="#" class="btn btn-primary btn-sm">View All Events</a>
+									<a href="{{ with .Site.GetPage "section" "events" }}{{ .RelPermalink }}{{ end }}" class="btn btn-primary btn-sm">View All Events</a>
 								</div>
 							</div>
 							<div class="spacer-30"></div>
