@@ -1,0 +1,10 @@
+  <div class="widget sidebar-widget">
+    <div class="sidebar-widget-title">
+      <h3>Upcoming Events</h3>
+    </div>
+    <ul>
+      {{ range ((where (where .Site.RegularPages "Section" "events") "Params.startDate" "gt" now).ByParam "startDate").Limit 3 }}
+        {{ .Render "sidebar" }}
+      {{ end }}
+    </ul>
+  </div>

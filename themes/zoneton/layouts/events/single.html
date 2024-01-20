@@ -1,0 +1,84 @@
+{{ define "main" }}
+	{{ partial "header/standard.html" . }}
+
+<div class="main" role="main">
+    <div id="content" class="content full">
+        <div class="container">
+            <div class="row">
+              <div class="col-lg-9">
+                <header class="single-post-header display-flex justify-content-between">
+                  <h2 class="post-title">{{ .Title }}</h2>
+                  <div>
+                      <nav class="btn-toolbar"> <a href="#" class="btn btn-default" data-placement="bottom" data-toggle="tooltip" data-original-title="Print" ><i class="fas fa-print"></i></a> <a href="#" class="btn btn-default" data-placement="bottom" data-toggle="tooltip" data-original-title="Contact us" ><i class="fas fa-envelope"></i></a> <a href="#" class="btn btn-default" data-placement="bottom" data-toggle="tooltip" data-original-title="Share event" ><i class="fas fa-location-arrow"></i></a> </nav>
+                 </div>
+                </header>
+                <article class="post-content">
+                  <div class="event-description"> <img src="http://placehold.it/800x450&amp;text=IMAGE+PLACEHOLDER" class="img-responsive">
+                    <div class="spacer-20"></div>
+                    <div class="row">
+                      <div class="col-lg-8">
+                        <div class="panel panel-default">
+                          <div class="panel-heading">
+                            <h3 class="panel-title">Event details</h3>
+                          </div>
+                          <div class="panel-body">
+                            <ul class="info-table">
+                              <li><i class="fas fa-calendar-alt"></i> <strong>{{ .Params.startDate.Format "Monday" }}</strong> | {{ .Params.startDate.Format "January 2, 2006" }}</li>
+                              <li><i class="far fa-clock"></i> {{ .Params.startDate.Format "3:04 PM" }}{{ .Params.endDate.Format " - 3:04 PM" }}</li>
+                              <li><i class="fas fa-map-marker"></i> {{ if .Params.location }}{{ .Params.location }}{{ else }}Zoneton Lodge No. 964{{ end }}</li>
+                              <!--<li><i class="fas fa-phone"></i> 1 800 321 4321</li>-->
+                            </ul>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-lg-4">
+                        <ul class="list-group">
+                          <li class="list-group-item display-flex justify-content-between">Open to <span class="badge">{{ if .Params.openTo }}{{ .Params.openTo }}{{ else }}Members Only{{ end }}</span></li>
+                          <li class="list-group-item display-flex justify-content-between">Degree <span class="badge">{{ if .Params.meetingDegree }}{{ .Params.meetingDegree }}{{ else }}Master Mason{{ end }}</span></li>
+                          <li class="list-group-item display-flex justify-content-between">Type <span class="badge">{{ if .Params.meetingType }}{{ .Params.meetingType }}{{ else }}Stated Communication{{ end }}</span></li>
+                          <li class="list-group-item display-flex justify-content-between">Dinner <span class="badge">{{ if .Params.dinner }}{{ .Params.dinner }}{{ else }}One hour prior{{ end }}</span></li>
+                          <li class="list-group-item display-flex justify-content-between">R.S.V.P. <span class="badge">{{ if .Params.rsvp }}{{ .Params.rsvp }}{{ else }}not required</span>{{ end }}</li>
+                        </ul>
+                      </div>
+                    </div>
+                    {{ .Content }}
+                  </div>
+                </article>
+              </div>
+              <!-- Start Sidebar -->
+              <div class="col-lg-3 sidebar">
+                {{ partial "sidebar/upcoming_events.html" . }}
+                <div class="widget sidebar-widget">
+                  <div class="sidebar-widget-title">
+                    <h3>Events Categories</h3>
+                  </div>
+                  <ul>
+                    <li><a href="#">Lodge Home</a> (9)</li>
+                    <li><a href="#">About Us</a> (24)</li>
+                    <li><a href="#">All Events</a> (13)</li>
+                    <li><a href="#">Our Philantropies</a> (65)</li>
+                  </ul>
+                </div>
+                <!-- Recent Posts Widget -->
+                <div class="widget-recent-posts widget">
+                  <div class="sidebar-widget-title">
+                    <h3>Recent Posts</h3>
+                  </div>
+                  <ul>
+                    <li class=" display-flex"> <a href="#" class="media-box post-image"> <img src="http://placehold.it/800x600&amp;text=IMAGE+PLACEHOLDER" alt="" class="img-thumbnail"> </a>
+                      <div class="widget-blog-content"><a href="#">Voluptatum deleniti atque corrupti voluptatum deleniti atque corrupti</a> <span class="meta-data"><i class="fas fa-calendar-alt"></i> on 17th Dec, 2013</span> </div>
+                    </li>
+                    <li class=" display-flex"> <a href="#" class="media-box post-image"> <img src="http://placehold.it/800x600&amp;text=IMAGE+PLACEHOLDER" alt="" class="img-thumbnail"> </a>
+                      <div class="widget-blog-content"><a href="#">Voluptatum deleniti atque corrupti</a> <span class="meta-data"><i class="fas fa-calendar-alt"></i> on 17th Dec, 2013</span> </div>
+                    </li>
+                    <li class=" display-flex"> <a href="#" class="media-box post-image"> <img src="http://placehold.it/800x600&amp;text=IMAGE+PLACEHOLDER" alt="" class="img-thumbnail"> </a>
+                      <div class="widget-blog-content"><a href="#">Voluptatum deleniti atque corrupti voluptatum deleniti atque corrupti</a> <span class="meta-data"><i class="fas fa-calendar-alt"></i> on 17th Dec, 2013</span> </div>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+        </div>
+    </div>
+</div>
+{{ end }}

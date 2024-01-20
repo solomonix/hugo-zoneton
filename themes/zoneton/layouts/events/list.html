@@ -2,14 +2,20 @@
 	{{ partial "header/standard.html" . }}
 
 	<!-- If we're at /events, get the latest year <= this year. Otherwise, use the section we're in -->
-	{{ $events_year := index (where .Sections.ByDate.Reverse "Date" "le" now) 0 }}
-	{{ if ne .CurrentSection .FirstSection }}
-		{{ $events_year = .CurrentSection }}
-	{{ end }}
+	{{ $events_year := .FirstSection }}
 
 	<!-- We'll also need the previous and next year page objects so we can draw navigation links -->
-	{{ $next_year := index (where .FirstSection.Sections.ByDate "Date" "gt" $events_year.Date) 0 }}
-	{{ $prev_year := index (where .FirstSection.Sections.ByDate.Reverse "Date" "lt" $events_year.Date) 0 }}
+	{{ $next_year := index (where .FirstSection.Sections.ByDate "Date" "gt" now) 0 }}
+	{{ $prev_year := index (where .FirstSection.Sections.ByDate.Reverse "Date" "lt" now) 0 }}
+	{{ $current_year := $prev_year }}
+
+	<!-- If we're on a specific year's sub-section, then variables change. -->
+	{{ if ne .CurrentSection .FirstSection }}
+		{{ $events_year = .CurrentSection }}
+		{{ $current_year = .CurrentSection }}
+		{{ $next_year = index (where .FirstSection.Sections.ByDate "Date" "gt" $events_year.Date) 0 }}
+		{{ $prev_year = index (where .FirstSection.Sections.ByDate.Reverse "Date" "lt" $events_year.Date) 0 }}
+	{{ end }}
 
 	<div class="main" role="main">
 			<div id="content" class="content full">
@@ -21,10 +27,15 @@
 						  <header class="listing-header">
 							<div class="row">
 							  <div class="col-lg-6 col-md-6">
-								<h3>All events</h3>
+								<h3>
+									{{ if eq .CurrentSection .FirstSection }}Future events{{ else }}{{ $events_year.Date.Year }} events{{ end }}
+									{{ with $calendar := $current_year.Params.pdfCalendar }}
+										<a href="{{ $calendar | relURL }}" class="btn btn-default"><i class="far fa-file-pdf" style="color: red;"></i> Click here for printable calendar</a>
+									{{ end }}
+								</h3>
 							  </div>
 							  <div class="listing-header-sub col-mg-6 col-md-6">
-								<h5>{{ $events_year.Date.Year }}</h5>
+								<h5>{{ if eq .CurrentSection .FirstSection }}{{ now.Year }}{{ else }}{{ $events_year.Date.Year }}{{ end }}</h5>
 								<nav class="next-prev-nav"> 
 									{{ with $prev_year }}<a href="{{ .RelPermalink }}"><i class="fas fa-angle-left"></i></a>{{ end }}
 									{{ with $next_year }}<a href="{{ .RelPermalink }}"><i class="fas fa-angle-right"></i></a>{{ end }}
@@ -34,9 +45,15 @@
 						  </header>
 						  <section class="listing-cont">
 							<ul>
-							  {{ range $events_year.Pages }}
-								{{ .Render "li" }}
-							  </li>
+							  {{ if eq .CurrentSection .FirstSection }}
+							    {{ range (where (where .Site.RegularPages "Section" "events") "Params.startDate" "gt" now).Limit 28}}
+								    {{ .Render "li" }}
+								{{ end }}
+							  {{ else }}
+								{{ range $events_year.Pages }}
+									{{ .Render "li" }}
+								</li>
+								{{ end }}
 							  {{ end }}
 							</ul>
 						  </section>
@@ -67,11 +84,10 @@
 							<h3>Events Categories</h3>
 						  </div>
 						  <ul>
-							<li><a href="#">Church Home</a> (9)</li>
+							<li><a href="#">Lodge Home</a> (9)</li>
 							<li><a href="#">About Us</a> (24)</li>
 							<li><a href="#">All Events</a> (13)</li>
-							<li><a href="#">Sermons Archive</a> (23)</li>
-							<li><a href="#">Our Ministries</a> (65)</li>
+							<li><a href="#">Our Philantropies</a> (65)</li>
 						  </ul>
 						</div>
 						<!-- Recent Posts Widget -->
@@ -110,7 +126,7 @@
 						</ul>
 						</div>
 						<!-- Recent Comments Widget -->
-						<div class="widget_recent_comments widget">
+						<!--<div class="widget_recent_comments widget">
 						  <div class="sidebar-widget-title">
 							<h3>Recent Comments</h3>
 						  </div>
@@ -119,7 +135,7 @@
 							<li class="recentcomments"> Admin on <a href="#">Voluptatum deleniti atque corrupti</a> </li>
 							<li class="recentcomments"> <a href="#">Admin</a> on <a href="#">Voluptatum deleniti atque corrupti voluptatum deleniti atque corrupti</a> </li>
 						  </ul>
-						</div>
+						</div>-->
 					  </div>
 					</div>
 				  </div>

@@ -1,0 +1,6 @@
+<li class="item event-item display-flex">
+    <div class="event-date"> <span class="date">{{ .Params.startDate.Format "02" }}</span> <span class="month">{{ .Params.startDate.Format "Jan" }}</span> </div>
+    <div class="event-detail">
+    <h4><a href="{{ .RelPermalink }}">{{ .Title }}</a></h4>
+    <span class="event-dayntime meta-data">{{ .Params.startDate.Format "Monday | 03:04 PM" }}</span> </div>
+</li>

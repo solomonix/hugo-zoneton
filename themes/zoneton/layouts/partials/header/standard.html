@@ -18,8 +18,13 @@
 		<div class="page-header">
 			<div class="container">
 				<div class="row">
-					<div class="col-md-12">
+					<div class="{{ if .IsPage }}col-12 display-flex justify-content-between{{ else }}col-md-12{{ end }}">
 					  <h1>{{ .FirstSection.Title }}</h1>
+                      {{ if .IsPage }}
+                        {{ with $all_button := .FirstSection }}
+                            <span><a href="{{ $all_button.RelPermalink }}" class="btn btn-primary">All {{ $all_button.LinkTitle }}</a></span>
+                        {{ end }}
+                      {{ end }}
 					</div>
 				</div>
 			</div>
