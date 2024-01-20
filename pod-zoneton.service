@@ -1,0 +1,14 @@
+# Service file for refreshing Zoneton Lodge's Hugo static site
+# Designed to be called by pod-zoneton.timer
+
+[Unit]
+Description=Rebuild Zoneton Lodge Hugo static site
+Wants=pod-zoneton.timer
+
+[Service]
+Type=oneshot
+ExecStart=/opt/hugo-zoneton/deploy.sh
+
+[Install]
+WantedBy=multi-user.target
+

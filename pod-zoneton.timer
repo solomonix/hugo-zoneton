@@ -1,0 +1,13 @@
+# Timer for nightly refresh of Hugo static site build
+
+[Unit]
+Description=Timer for Zoneton Lodge static site rebuilds
+Requires=pod-zoneton.service
+
+[Timer]
+Unit=pod-zoneton.service
+OnCalendar=*-*-* 00:00:00
+
+[Install]
+WantedBy=timers.target
+
