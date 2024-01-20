@@ -1,0 +1,27 @@
+		<!-- Start Nav Backed Header -->
+		<div class="nav-backed-header parallax" {{ if .Params.header_image }}style="background-image:url({{ .Params.header_image | relURL }});"{{ end }}>
+			<div class="container">
+			  <div class="row">
+				<div class="col-lg-12">
+                  <ol class="breadcrumb">
+                    {{ range .Ancestors.Reverse }}
+                        <li><a href="{{ .RelPermalink }}">{{ .LinkTitle }}</a></li>
+                    {{ end }}
+                    <li class="active">{{ .LinkTitle }}</li>
+                  </ol>
+				</div>
+			  </div>
+			</div>
+		</div>
+		<!-- End Nav Backed Header --> 
+		<!-- Start Page Header -->
+		<div class="page-header">
+			<div class="container">
+				<div class="row">
+					<div class="col-md-12">
+					  <h1>{{ .FirstSection.Title }}</h1>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- End Page Header -->

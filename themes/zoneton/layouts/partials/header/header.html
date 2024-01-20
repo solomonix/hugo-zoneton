@@ -1,0 +1,23 @@
+      <!-- Start Site Header -->
+		<header class="site-header">
+			<div class="topbar">
+				<div class="container">
+					<div class="row align-items-center">
+						<div class="col-lg-4 col-md-6 col-sm-8">
+							<h1 class="logo"> <a href="{{ .Site.BaseURL }}"><img src="{{ "images/logo.png" | relURL }}" alt="Logo"></a> </h1>
+						</div>
+						<div class="col-lg-8 col-md-6 col-sm-4">
+							<ul class="top-navigation hidden-sm hidden-xs padding-t0">
+								<li><a href="#">Becoming a Freemason</a></li>
+								<li><a href="#">Hall Rental</a></li>
+								<li><a href="#">Visit Us</a></li>
+							</ul>
+							<a href="#" class="d-none d-sm-block d-md-none menu-toggle"><i class="fas fa-bars"></i></a> 
+						</div>
+					</div>
+				</div>
+			</div>
+
+			{{ partial "header/menu.html" . }}
+		</header>
+		<!-- End Site Header -->

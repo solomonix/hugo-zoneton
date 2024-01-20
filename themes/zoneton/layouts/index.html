@@ -1,0 +1,154 @@
+{{ define "main" }}
+		<!-- Start Hero Slider -->
+		<div class="hero-slider flexslider clearfix" data-autoplay="yes" data-pagination="yes" data-arrows="yes" data-style="fade" data-pause="yes">
+			<ul class="slides">
+				<li class="parallax" style="background-image:url({{ "images/carousel/carousel1.jpg" | relURL }});"></li>
+				<li class="parallax" style="background-image:url({{ "images/carousel/carousel2.jpg" | relURL }});"></li>
+			</ul>
+		</div>
+		<!-- End Hero Slider -->
+		<!-- Start Notice Bar -->
+		<div class="notice-bar">
+			<div class="container">
+				<div class="row">
+					<div class="col-lg-3 col-md-6 col-6 notice-bar-title"> 
+						<div class="display-flex">
+							<span class="notice-bar-title-icon d-none d-xl-block d-none d-lg-block"><i class="far fa-calendar-alt fa-3x"></i></span>
+							<span class="notice-in">
+								<span class="title-note">Next</span> <strong>Lodge Event</strong> 
+							</span>
+						</div>
+						
+					</div>
+					{{ range ((where (where .Site.RegularPages "Section" "events") "Params.startDate" "gt" now).ByParam "startDate").Limit 1 }}
+						<div class="col-lg-3 col-md-6 col-6 notice-bar-event-title">
+							<h5><a href="{{ .RelPermalink }}">{{ .Title }}</a></h5>
+							<span class="meta-data">{{ .Params.startDate.Format "January" }} {{ humanize .Params.startDate.Day }}, {{ .Params.startDate.Format "2006 at 3:04 PM" }}</span> 
+						</div>
+						<div id="counter" class="col-lg-4 col-md-6 col-sm-12 counter" data-date="{{ .Params.startDate.Format "January 2, 2006 15:04" }}">
+							<div class="timer-col"> <span id="days"></span> <span class="timer-type">days</span> </div>
+							<div class="timer-col"> <span id="hours"></span> <span class="timer-type">hrs</span> </div>
+							<div class="timer-col"> <span id="minutes"></span> <span class="timer-type">mins</span> </div>
+							<div class="timer-col"> <span id="seconds"></span> <span class="timer-type">secs</span> </div>
+						</div>
+						<div class="col-lg-2 col-md-6 col-sm-12 d-sm-none d-md-block"> <a href="{{ .CurrentSection.RelPermalink }}" class="btn btn-primary btn-lg btn-block">All Events</a> </div>
+					{{ end }}
+				</div>
+			</div>
+		</div>
+		<!-- End Notice Bar -->
+		<div class="main" role="main">
+			<div id="content" class="content full">
+				<div class="container">
+					<!-- Start Featured Blocks -->
+					<div class="featured-blocks clearfix">
+						<div class="row"> 
+							<div class="col-lg-4 col-md-4 col-sm-12 featured-block"> <a href="our-staff.html" class="img-thumbnail"> <img src="http://placehold.it/600x400&amp;text=IMAGE+PLACEHOLDER" alt="staff"> <strong>Freemasonry</strong> <span class="more">learn more</span> </a> </div>
+							<div class="col-lg-4 col-md-4 col-sm-12 featured-block"> <a href="about.html" class="img-thumbnail"> <img src="http://placehold.it/600x400&amp;text=IMAGE+PLACEHOLDER" alt="staff"> <strong>Our Lodge</strong> <span class="more">about us</span> </a> </div>
+							<div class="col-lg-4 col-md-4 col-sm-12 featured-block"> <a href="items.html" class="img-thumbnail"> <img src="http://placehold.it/600x400&amp;text=IMAGE+PLACEHOLDER" alt="staff"> <strong>{{ now.Year }} Calendar</strong> <span class="more">view events</span> </a> </div>
+						</div>
+					</div>
+					<!-- End Featured Blocks -->
+					<div class="row">
+						<div class="col-lg-8 col-md-6 col-sm-12"> 
+							<!-- Events Listing (limited to the next three upcoming) -->
+							<div class="listing events-listing">
+								<header class="listing-header">
+									<h3>Upcoming Events</h3>
+								</header>
+								<section class="listing-cont">
+									<ul>
+										{{ range ((where (where .Site.RegularPages "Section" "events") "Params.startDate" "gt" now).ByParam "startDate").Limit 3 }}
+											{{ .Render "li" }}
+										{{ end }}
+									</ul>
+								</section>
+								<div style="text-align: right; padding: 0.5rem 0;">
+									<a href="#" class="btn btn-primary btn-sm">View All Events</a>
+								</div>
+							</div>
+							<div class="spacer-30"></div>
+							<!-- Latest News -->
+							<div class="listing post-listing">
+								<header class="listing-header">
+									<h3>Latest News</h3>
+								</header>
+								<section class="listing-cont">
+									<ul>
+										<li class="item post">
+										<div class="row">
+											<div class="col-md-4"> <a href="#" class="media-box"> <img src="http://placehold.it/800x600&amp;text=IMAGE+PLACEHOLDER" alt="" class="img-thumbnail"> </a></div>
+											<div class="col-md-8">
+												<div class="post-title">
+												<h2><a href="blog-post.html">Voluptatum deleniti atque corrupti</a></h2>
+												<span class="meta-data"><i class="far fa-calendar-alt"></i> on 17th Dec, 2013</span></div>
+												<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla convallis egestas rhoncus. Donec facilisis fermentum sem, ac viverra ante luctus vel. Donec vel mauris quam. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla convallis egestas rhoncus.</p>
+											</div>
+										</div>
+										</li>
+										<li class="item post">
+											<div class="row">
+												<div class="col-md-4"> <a href="blog-post.html" class="media-box"> <img src="http://placehold.it/800x600&amp;text=IMAGE+PLACEHOLDER" alt="" class="img-thumbnail"> </a></div>
+												<div class="col-md-8">
+													<div class="post-title">
+													<h2><a href="blog-post.html">Voluptatum deleniti atque corrupti</a></h2>
+													<span class="meta-data"><i class="far fa-calendar-alt"></i> on 17th Dec, 2013</span></div>
+													<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla convallis egestas rhoncus. Donec facilisis fermentum sem, ac viverra ante luctus vel. Donec vel mauris quam. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla convallis egestas rhoncus.</p>
+												</div>
+											</div>
+										</li>
+									</ul>
+								</section>
+								<div style="text-align: right; padding: 0.5rem 0;">
+									<a href="#" class="btn btn-primary btn-sm">View All News Posts</a>
+								</div>
+							</div>
+						</div>
+						<!-- Start Sidebar -->
+						<div class="col-lg-4 col-md-6 col-sm-12">
+							<!-- Latest items -->
+							<div class="listing items-listing">
+								<!--<header class="listing-header">
+									<h3>Chris Bell, Master</h3>
+								</header>-->
+								<section><!-- class="listing-cont">-->
+									<ul>
+										<li class="item item featured-item">
+											<span class="date">Worshipful Chris Bell, Master</span>
+											<h4><a href="single-item.html">Welcome to Zoneton Lodge</a></h4>
+											<div class="featured-item-video">
+												<img src="http://placehold.it/256x192&amp;text=IMAGE+PLACEHOLDER" alt="" class="img-thumbnail"> 
+											</div>
+											<p>Welcome to our website. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla convallis egestas rhoncus. Donec facilisis consectetur adipiscing elit. Nulla convallis egestas rhoncus</p>
+											<div class="item-actions"> <a href="#" data-placement="top" data-toggle="tooltip" data-original-title="Video"><i class="fas fa-video"></i></a> <a href="#" data-placement="top" data-toggle="tooltip" data-original-title="Audio"><i class="fas fa-headphones"></i></a> <a href="#" data-placement="top" data-toggle="tooltip" data-original-title="Read online"><i class="far fa-file-alt"></i></a> <a href="#" data-placement="top" data-toggle="tooltip" data-original-title="Download PDF"><i class="fas fa-book"></i></a> </div>
+										</li>
+
+									</ul>
+								</section>
+								<header class="listing-header">
+									<h3>Last Rites</h3>
+								</header>
+								<section class="listing-cont">
+									<ul>
+										<li class="item item">
+										<h2 class="item-title"><a href="single-item.html">Voluptatum deleniti atque corrupti</a></h2>
+										<span class="meta-data"><i class="far fa-calendar-alt"></i> on 17th Dec, 2013</span> </li>
+										<li class="item item">
+										<h2 class="item-title"><a href="single-item.html">Voluptatum deleniti atque corrupti</a></h2>
+										<span class="meta-data"><i class="far fa-calendar-alt"></i> on 17th Dec, 2013</span> </li>
+										<li class="item item">
+										<h2 class="item-title"><a href="single-item.html">Voluptatum deleniti atque corrupti</a></h2>
+										<span class="meta-data"><i class="far fa-calendar-alt"></i> on 17th Dec, 2013</span> </li>
+									</ul>
+								</section>
+								<div style="text-align: right; padding: 0.5rem 0;">
+									<a href="#" class="btn btn-primary btn-sm">More</a>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	{{ partial "gallery.html" . }}	
+{{ end }}

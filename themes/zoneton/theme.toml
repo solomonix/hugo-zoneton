@@ -1,0 +1,10 @@
+name = 'Zoneton Lodge'
+license = 'Proprietary'
+description = 'Port of NativeChurch Envato Premium theme for Zoneton Lodge'
+homepage = 'https://github.com/solomonix/zoneton_lodge_web/'
+tags = ['custom']
+features = ['blog', 'calendar']
+
+[author]
+  name = 'solomonix'
+  homepage = 'https://github.com/solomonix'

@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html class="no-js" lang="{{ .Site.LanguageCode | default "en-us" }}">
+  <head>
+	<!-- Basic Page Needs -->
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<title>{{ if not .IsHome }}{{ if .Page.Title }}{{ .Page.Title }} - {{ end }}{{ end }}{{ .Site.Title }}</title>
+
+	<meta charset="UTF-8">
+	{{ with .Site.Params.description }}<meta name="description" content="{{ . }}">{{ end }}
+	{{ with .Site.Params.author }}<meta name="author" content="{{ . }}">{{ end }}
+    {{ with .Site.Params.keywords }}<meta name="keywords" content="{{ . }}">{{ end }}
+	{{ with .OutputFormats.Get "RSS" -}}
+		{{ printf `<link rel="%s" type="%s" href="%s" title="%s">` .Rel .MediaType.Type .RelPermalink $.Site.Title | safeHTML }}
+	{{- end }}
+
+	<!-- Mobile Specific Metas -->
+	<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0">
+	<meta name="format-detection" content="telephone=no">
+	<!-- Stylesheets -->
+	<link href="{{ "vendor/mediaelement/mediaelementplayer.css" | relURL }}" rel="stylesheet" type="text/css">
+	<link href="{{ "css/style.css" | relURL }}" rel="stylesheet">
+
+	<link href="{{ "css/bootstrap-theme.css" | relURL }}" rel="stylesheet" type="text/css">
+	<link href="{{ "vendor/magnific/magnific-popup.css" | relURL }}" rel="stylesheet" type="text/css">
+	<link href="{{ "css/all.css" | relURL }}" rel="stylesheet" type="text/css">
+	<link class="alt" href="{{ "css/color7.css" | relURL }}" rel="stylesheet" type="text/css">
+	<!-- Scripts -->
+	<script src="{{ "js/modernizr.js" | relURL }}"></script>
+  </head>
+
+  <body>
+    <div class="body">
+		{{ partial "header/header.html" . }}
+		
+		{{ block "main" . }}
+			<!-- Main block of body content between header and footer -->
+		{{ end }}
+
+		{{ partial "footer.html" . }}
+      <a id="back-to-top"><i class="fas fa-angle-double-up"></i></a> 
+	</div>
+
+	<div id="fb-root"></div>
+    <script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v15.0" nonce="otbieWtD"></script>
+	<script src="{{ "js/jquery-3.5.1.min.js" | relURL }}"></script> <!-- jQuery Library Import -->
+	<script src="{{ "js/ajax.min.js" | relURL }}"></script> <!-- Bootstrap JS -->
+	<script src="{{ "js/bootstrap.min.js" | relURL }}"></script> <!-- Bootstrap JS -->
+	<script src="{{ "vendor/magnific/jquery.magnific-popup.min.js" | relURL }}"></script> <!-- Magnific Plugin -->
+	<script src="{{ "js/helper-plugins.js" | relURL }}"></script> <!-- Plugins --> 
+	<script src="{{ "vendor/mediaelement/mediaelement-and-player.min.js" | relURL }}"></script> <!-- MediaElements -->
+	<script src="{{ "vendor/flexslider/js/jquery.flexslider.js" | relURL }}"></script> <!-- FlexSlider -->
+	<script src="{{ "vendor/countdown/js/jquery.countdown.min.js" | relURL }}"></script> <!-- Jquery Timer --> 
+	<script src="{{ "js/init.js" | relURL }}"></script> <!-- Template js functions initialization -->
+	
+</body>
+</html>

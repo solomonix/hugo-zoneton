@@ -1,0 +1,129 @@
+{{ define "main" }}
+	{{ partial "header/standard.html" . }}
+
+	<!-- If we're at /events, get the latest year <= this year. Otherwise, use the section we're in -->
+	{{ $events_year := index (where .Sections.ByDate.Reverse "Date" "le" now) 0 }}
+	{{ if ne .CurrentSection .FirstSection }}
+		{{ $events_year = .CurrentSection }}
+	{{ end }}
+
+	<!-- We'll also need the previous and next year page objects so we can draw navigation links -->
+	{{ $next_year := index (where .FirstSection.Sections.ByDate "Date" "gt" $events_year.Date) 0 }}
+	{{ $prev_year := index (where .FirstSection.Sections.ByDate.Reverse "Date" "lt" $events_year.Date) 0 }}
+
+	<div class="main" role="main">
+			<div id="content" class="content full">
+				<div class="container">
+					<div class="row">
+					  <div class="col-lg-9"> 
+						<!-- Events Listing -->
+						<div class="listing events-listing">
+						  <header class="listing-header">
+							<div class="row">
+							  <div class="col-lg-6 col-md-6">
+								<h3>All events</h3>
+							  </div>
+							  <div class="listing-header-sub col-mg-6 col-md-6">
+								<h5>{{ $events_year.Date.Year }}</h5>
+								<nav class="next-prev-nav"> 
+									{{ with $prev_year }}<a href="{{ .RelPermalink }}"><i class="fas fa-angle-left"></i></a>{{ end }}
+									{{ with $next_year }}<a href="{{ .RelPermalink }}"><i class="fas fa-angle-right"></i></a>{{ end }}
+								</nav>
+							  </div>
+							</div>
+						  </header>
+						  <section class="listing-cont">
+							<ul>
+							  {{ range $events_year.Pages }}
+								{{ .Render "li" }}
+							  </li>
+							  {{ end }}
+							</ul>
+						  </section>
+						</div>
+					  </div>
+					  <!-- Start Sidebar -->
+					  <div class="col-lg-3 sidebar">
+						<div class="widget-upcoming-events widget">
+						 <!-- Featured Event Widget -->
+						<div class="widget featured_event_widget"> 
+						  <div class="sidebar-widget-title">
+							<h3>Featured Event</h3>
+						  </div>
+						  <img src="http://placehold.it/600x400&amp;text=IMAGE+PLACEHOLDER" alt="" class="featured-event-image">
+						  <div class="featured-event-container">
+							<label class="label label-danger">Upcoming</label> <!-- Replace class label-danger to label-default for passed events -->
+							<div class="featured-event-time">
+								<span class="date">21</span>
+								<span class="month">Aug, 14</span>
+							</div>
+							<h4 class="featured-event-title"><a href="#">A nice event title</a></h4>
+							<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla convallis egestas rhoncus. Donec facilisis consectetur adipiscing elit. Nulla convallis egestas rhoncus</p>
+						  </div>
+						</div>
+						<!-- Upcoming Events Widget -->
+						<div class="widget sidebar-widget">
+						  <div class="sidebar-widget-title">
+							<h3>Events Categories</h3>
+						  </div>
+						  <ul>
+							<li><a href="#">Church Home</a> (9)</li>
+							<li><a href="#">About Us</a> (24)</li>
+							<li><a href="#">All Events</a> (13)</li>
+							<li><a href="#">Sermons Archive</a> (23)</li>
+							<li><a href="#">Our Ministries</a> (65)</li>
+						  </ul>
+						</div>
+						<!-- Recent Posts Widget -->
+						<div class="widget-recent-posts widget">
+						  <div class="sidebar-widget-title">
+							<h3>Recent Posts</h3>
+						  </div>
+						  <ul>
+							<li class="display-flex"> 
+								<a href="#" class="media-box post-image"> 
+									<img src="http://placehold.it/800x600&amp;text=IMAGE+PLACEHOLDER" alt="" class="img-thumbnail">
+								</a>
+								<div class="widget-blog-content">
+									<a href="#">Voluptatum deleniti atque corrupti voluptatum deleniti atque corrupti</a> 
+									<span class="meta-data"><i class="fas fa-calendar-alt"></i> on 17th Dec, 2013</span> 
+								</div>
+							</li>
+							<li class="display-flex"> 
+								<a href="#" class="media-box post-image"> 
+									<img src="http://placehold.it/800x600&amp;text=IMAGE+PLACEHOLDER" alt="" class="img-thumbnail"> 
+								</a>
+								<div class="widget-blog-content">
+									<a href="#">Voluptatum deleniti atque corrupti</a> 
+									<span class="meta-data"><i class="fas fa-calendar-alt"></i> on 17th Dec, 2013</span> 
+								</div>
+							</li>
+							<li class="display-flex"> 
+								<a href="#" class="media-box post-image"> 
+									<img src="http://placehold.it/800x600&amp;text=IMAGE+PLACEHOLDER" alt="" class="img-thumbnail">
+								</a>
+								<div class="widget-blog-content">
+									<a href="#">Voluptatum deleniti atque corrupti voluptatum deleniti atque corrupti</a> 
+									<span class="meta-data"><i class="fas fa-calendar-alt"></i> on 17th Dec, 2013</span> 
+								</div>
+							</li>
+						</ul>
+						</div>
+						<!-- Recent Comments Widget -->
+						<div class="widget_recent_comments widget">
+						  <div class="sidebar-widget-title">
+							<h3>Recent Comments</h3>
+						  </div>
+						  <ul>
+							<li class="recentcomments"> <a href="#">Admin</a> on <a href="#">Voluptatum deleniti atque corrupti voluptatum deleniti atque corrupti</a> </li>
+							<li class="recentcomments"> Admin on <a href="#">Voluptatum deleniti atque corrupti</a> </li>
+							<li class="recentcomments"> <a href="#">Admin</a> on <a href="#">Voluptatum deleniti atque corrupti voluptatum deleniti atque corrupti</a> </li>
+						  </ul>
+						</div>
+					  </div>
+					</div>
+				  </div>
+				</div>
+			</div>
+		</div>
+{{ end }}
